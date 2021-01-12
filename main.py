@@ -3,6 +3,7 @@ class chess:
     piece="You're not suppossed to see this."
     x=0
     y=0
+    hasMoved=False
     alive=True
 def pos(piece,x,y): [piece.x,piece.y]=[x,y]
 def create(piece,c,p,x,y): [piece.color,piece.piece,piece.x,piece.y]=[c,p,x,y]
@@ -77,23 +78,87 @@ def check(xy):
     elif xy==[bqueen.x,bqueen.y] return bqueen
     elif xy==[bking.x,bking.y] return bking
     return "none"
+def moveto(x,y,color,canCapture,mustCapture): #mustCapture and canCapture are really just for pawns but i guess you could make custom pieces lol.
+    if (check([x,y])=="none" and not mustCapture) or (check([x,y]).c!=color and canCapture): return True 
+    #gotta also check for king check
+    else: return False
+def linearmoveto(x,y,color,canCapture,mustCapture,acrossx,acrossy,xlimit,ylimit):
+    possible=["You should not see this."]
+    if xlimit:
+        xplim=x+xlimit+1
+        xnlim=x-xlimit-1
+    else:
+        xplim=9
+        xnlim=0
+    if ylimit:
+        yplim=y+ylimit+1
+        ynlim=y-ylimit-1
+    else:
+        yplim=9
+        ynlim=0
+    if acrossx and not acrossy:
+        for i in range(x+1,xplim):
+            if moveto(i,y,color,canCapture,mustCapture): possible.appened([i,y])
+        for i in range(x-1,xnlim,-1):
+            if moveto(i,y,color,canCapture,mustCapture): possible.appened([i,y])
+    elif acrossy and not acrossx:
+        for i in range(y+1,yplim):
+            if moveto(i,y,color,canCapture,mustCapture): possible.appened([x,i])
+        for i in range(y-1,ynlim,-1):
+            if moveto(i,y,color,canCapture,mustCapture): possible.appened([x,i])
+    elif acrossx and acrossy:
+        j=y+1
+        for i in range(x+1,xplim):
+            if moveto(i,j,color,canCapture,mustCapture): possible.appened([i,j])
+            j+=1
+            if j==yplim: break
+        j=y+1
+        for i in range(x-1,xnlim,-1):
+            if moveto(i,j,color,canCapture,mustCapture): possible.appened([i,j])
+            j+=1
+            if j==yplim:break
+        j=y-1
+        for i in range(x+1,xplim):
+            if moveto(i,j,color,canCapture,mustCapture): possible.appened([i,j])
+            j-=1
+            if j==ynlim: break
+        j=y-1
+        for i in range(x-1,xnlim,-1):
+            if moveto(i,j,color,canCapture,mustCapture): possible.appened([i,j])
+            j-=1
+            if j==ynlim:break
+    return possible.remove("You should not see this.")
 def move(piece):
     possible=["You should not see this."]
     if piece.piece=="Pawn":
-        #add logic. prob make a moveto(x,y) function and a linermoveto(across x,across y) function
-        #figure out how to make a list of possible moves and let player input one and check for validity of move.
+        if moveto(piece.x+colorrev(piece.color,1),piece.y,piece.color,False,False): possible.appened([piece.x+colorrev(piece.color,1),piece.y])
+        if moveto(piece.x+colorrev(piece.color,1),piece.y+1,piece.color,True,True): possible.appened([piece.x+colorrev(piece.color,1),piece.y+1])
+        if moveto(piece.x+colorrev(piece.color,1),piece.y-1,piece.color,True,True): possible.appened([piece.x+colorrev(piece.color,1),piece.y-1])
+        if moveto(piece.x+colorrev(piece.color,2),piece.y,piece.color,False,False) and not piece.hasMoved: possible.appened([piece.x+colorrev(piece.color,2),piece.y])
     elif piece.piece=="Rook":
-        
+        possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,False,False))
+        possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,False,False))
+        #add castle logic (rook moves in front of king, king jumps over rook)
     elif piece.piece=="Knight":
-        
+        if moveto(piece.x+1,piece.y+2,piece.color,True,False): possible.appened([piece.x+1,piece.y+2])
+        if moveto(piece.x-1,piece.y+2,piece.color,True,False): possible.appened([piece.x-1,piece.y+2])
+        if moveto(piece.x+1,piece.y-2,piece.color,True,False): possible.appened([piece.x+1,piece.y-2])
+        if moveto(piece.x-1,piece.y-2,piece.color,True,False): possible.appened([piece.x-1,piece.y-2])
+        if moveto(piece.x+2,piece.y+1,piece.color,True,False): possible.appened([piece.x+2,piece.y+1])
+        if moveto(piece.x-2,piece.y+1,piece.color,True,False): possible.appened([piece.x-2,piece.y+1])
+        if moveto(piece.x+2,piece.y-1,piece.color,True,False): possible.appened([piece.x+2,piece.y-1])
+        if moveto(piece.x-2,piece.y-1,piece.color,True,False): possible.appened([piece.x-2,piece.y-1])
     elif piece.piece=="Bishop":
-        
+        possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False))
     elif piece.piece=="Queen":
-        
+        possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,False,False))
+        possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,False,False))
+        possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False))
     elif piece.piece=="King":
-        
-    possible.remove("You should not see this.")
-    #continue with other pieces like so
+        possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,1,1))
+        possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,1,1))
+        possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,1,1))
+    return possible.remove("You should not see this.")
 wpawn1=chess()
 wpawn2=chess()
 wpawn3=chess()
