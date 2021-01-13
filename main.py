@@ -3,7 +3,7 @@ class chess:
     piece="You're not suppossed to see this."
     x=0
     y=0
-    hasMoved=False
+    hasMoved=False #this is just for pawns and castling but you could create custom pices with it. also might have to add a times moved for en passant
     alive=True
 def swap(swap,x,y):
     if swap==x: return y
@@ -51,38 +51,38 @@ def colorrev(color,x):
     else: return -1*x
 def check(xy):
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wlrook,wlknight,wlbishop,wrrook,wrknight,wrbishop,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,blrook,blknight,blbishop,brrook,brknight,brbishop,bqueen,bking
-    if xy==[wpawn1.x,wpawn1.y]: return wpawn1
-    elif xy==[wpawn2.x,wpawn2.y]: return wpawn2
-    elif xy==[wpawn3.x,wpawn3.y]: return wpawn3
-    elif xy==[wpawn4.x,wpawn4.y]: return wpawn4
-    elif xy==[wpawn5.x,wpawn5.y]: return wpawn5
-    elif xy==[wpawn6.x,wpawn6.y]: return wpawn6
-    elif xy==[wpawn7.x,wpawn7.y]: return wpawn7
-    elif xy==[wpawn8.x,wpawn8.y]: return wpawn8
-    elif xy==[wlrook.x,wlrook.y]: return wlrook
-    elif xy==[wlknight.x,wlknight.y]: return wlknight
-    elif xy==[wlbishop.x,wlbishop.y]: return wlbishop
-    elif xy==[wrrook.x,wrrook.y]: return wrrook
-    elif xy==[wrknight.x,wrknight.y]: return wrknight
-    elif xy==[wrbishop.x,wrbishop.y]: return wrbishop
-    elif xy==[wqueen.x,wqueen.y]: return wqueen
-    elif xy==[wking.x,wking.y]: return wking
-    elif xy==[bpawn1.x,bpawn1.y]: return bpawn1
-    elif xy==[bpawn2.x,bpawn2.y]: return bpawn2
-    elif xy==[bpawn3.x,bpawn3.y]: return bpawn3
-    elif xy==[bpawn4.x,bpawn4.y]: return bpawn4
-    elif xy==[bpawn5.x,bpawn5.y]: return bpawn5
-    elif xy==[bpawn6.x,bpawn6.y]: return bpawn6
-    elif xy==[bpawn7.x,bpawn7.y]: return bpawn7
-    elif xy==[bpawn8.x,bpawn8.y]: return bpawn8
-    elif xy==[blrook.x,blrook.y]: return blrook
-    elif xy==[blknight.x,blknight.y]: return blknight
-    elif xy==[blbishop.x,blbishop.y]: return blbishop
-    elif xy==[brrook.x,brrook.y]: return brrook
-    elif xy==[brknight.x,brknight.y]: return brknight
-    elif xy==[brbishop.x,brbishop.y]: return brbishop
-    elif xy==[bqueen.x,bqueen.y]: return bqueen
-    elif xy==[bking.x,bking.y]: return bking
+    if xy==[wpawn1.x,wpawn1.y] and wpawn1.alive: return "wpawn1"
+    elif xy==[wpawn2.x,wpawn2.y] and wpawn2.alive: return "wpawn2"
+    elif xy==[wpawn3.x,wpawn3.y] and wpawn3.alive: return "wpawn3"
+    elif xy==[wpawn4.x,wpawn4.y] and wpawn4.alive: return "wpawn4"
+    elif xy==[wpawn5.x,wpawn5.y] and wpawn5.alive: return "wpawn5"
+    elif xy==[wpawn6.x,wpawn6.y] and wpawn6.alive: return "wpawn6"
+    elif xy==[wpawn7.x,wpawn7.y] and wpawn7.alive: return "wpawn7"
+    elif xy==[wpawn8.x,wpawn8.y] and wpawn8.alive: return "wpawn8"
+    elif xy==[wlrook.x,wlrook.y] and wlrook.alive: return "wlrook"
+    elif xy==[wlknight.x,wlknight.y] and wlknight.alive: return "wlknight"
+    elif xy==[wlbishop.x,wlbishop.y] and wlbishop.alive: return "wlbishop"
+    elif xy==[wrrook.x,wrrook.y] and wrrook.alive: return "wrrook"
+    elif xy==[wrknight.x,wrknight.y] and wrknight.alive: return "wrknight"
+    elif xy==[wrbishop.x,wrbishop.y] and wrbishop.alive: return "wrbishop"
+    elif xy==[wqueen.x,wqueen.y] and wqueen.alive: return "wqueen"
+    elif xy==[wking.x,wking.y] and wking.alive: return "wking"
+    elif xy==[bpawn1.x,bpawn1.y] and bpawn1.alive: return "bpawn1"
+    elif xy==[bpawn2.x,bpawn2.y] and bpawn2.alive: return "bpawn2"
+    elif xy==[bpawn3.x,bpawn3.y] and bpawn3.alive: return "bpawn3"
+    elif xy==[bpawn4.x,bpawn4.y] and bpawn4.alive: return "bpawn4"
+    elif xy==[bpawn5.x,bpawn5.y] and bpawn5.alive: return "bpawn5"
+    elif xy==[bpawn6.x,bpawn6.y] and bpawn6.alive: return "bpawn6"
+    elif xy==[bpawn7.x,bpawn7.y] and bpawn7.alive: return "bpawn7"
+    elif xy==[bpawn8.x,bpawn8.y] and bpawn8.alive: return "bpawn8"
+    elif xy==[blrook.x,blrook.y] and blrook.alive: return "blrook"
+    elif xy==[blknight.x,blknight.y] and blknight.alive: return "blknight"
+    elif xy==[blbishop.x,blbishop.y] and blbishop.alive: return "blbishop"
+    elif xy==[brrook.x,brrook.y] and brrook.alive: return "brrook"
+    elif xy==[brknight.x,brknight.y] and brknight.alive: return "brknight"
+    elif xy==[brbishop.x,brbishop.y] and brbishop.alive: return "brbishop"
+    elif xy==[bqueen.x,bqueen.y] and bqueen.alive: return "bqueen"
+    elif xy==[bking.x,bking.y] and bking.alive: return "bking"
     return "none"
 def kingcheck(color):
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wlrook,wlknight,wlbishop,wrrook,wrknight,wrbishop,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,blrook,blknight,blbishop,brrook,brknight,brbishop,bqueen,bking
@@ -130,19 +130,19 @@ def moveto(x,y,color,canCapture,mustCapture):
         if (check([x,y]).color!=color and canCapture): return True 
     else: return False
     #mustCapture and canCapture are really just for pawns but i guess you could make custom pieces lol.
-def linearmoveto(x,y,color,canCapture,mustCapture,acrossx,acrossy,xlimit,ylimit):
+def linearmoveto(x,y,color,canCapture,mustCapture,acrossx,acrossy,xlimit,ylimit): #add a directional specifier for x and y (x/ydirec?)
     possible=["You should not see this."]
     if xlimit:
         xplim=x+xlimit+1
         xnlim=x-xlimit-1
     else:
-        xplim=9
+        xplim=9 #for customizing add a custom board size thing (or just change the 9 to one mor than the x if i didnt do that)
         xnlim=0
     if ylimit:
         yplim=y+ylimit+1
         ynlim=y-ylimit-1
     else:
-        yplim=9
+        yplim=9 #change this to one more than the y
         ynlim=0
     if acrossx and not acrossy:
         for i in range(x+1,xplim):
@@ -178,34 +178,36 @@ def linearmoveto(x,y,color,canCapture,mustCapture,acrossx,acrossy,xlimit,ylimit)
     return possible.remove("You should not see this.")
 def move(piece):
     possible=["You should not see this."]
-    if piece.piece=="Pawn":
-        if moveto(piece.x,piece.y+colorrev(piece.color,1),piece.color,False,False): possible.append([piece.x,piece.y+colorrev(piece.color,1)])
-        if moveto(piece.x+1,piece.y+colorrev(piece.color,1),piece.color,True,True): possible.append([piece.x+1,piece.y+colorrev(piece.color,1)])
-        if moveto(piece.x-1,piece.y+colorrev(piece.color,1),piece.color,True,True): possible.append([piece.x-1,piece.y+colorrev(piece.color,1)])
-        if moveto(piece.x,piece.y+colorrev(piece.color,2),piece.color,False,False) and not piece.hasMoved: possible.append([piece.x,piece.y+colorrev(piece.color,2)])
-    elif piece.piece=="Rook":
-        if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,False,False))
-        if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,False,False))
-        #add castle logic (rook moves in front of king, king jumps over rook)
-    elif piece.piece=="Knight":
-        if moveto(piece.x+1,piece.y+2,piece.color,True,False): possible.append([piece.x+1,piece.y+2])
-        if moveto(piece.x-1,piece.y+2,piece.color,True,False): possible.append([piece.x-1,piece.y+2])
-        if moveto(piece.x+1,piece.y-2,piece.color,True,False): possible.append([piece.x+1,piece.y-2])
-        if moveto(piece.x-1,piece.y-2,piece.color,True,False): possible.append([piece.x-1,piece.y-2])
-        if moveto(piece.x+2,piece.y+1,piece.color,True,False): possible.append([piece.x+2,piece.y+1])
-        if moveto(piece.x-2,piece.y+1,piece.color,True,False): possible.append([piece.x-2,piece.y+1])
-        if moveto(piece.x+2,piece.y-1,piece.color,True,False): possible.append([piece.x+2,piece.y-1])
-        if moveto(piece.x-2,piece.y-1,piece.color,True,False): possible.append([piece.x-2,piece.y-1])
-    elif piece.piece=="Bishop":
-        if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False))
-    elif piece.piece=="Queen":
-        if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,False,False))
-        if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,False,False))
-        if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False))
-    elif piece.piece=="King":
-        if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,1,1))
-        if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,1,1))
-        if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,1,1))
+    if piece.alive:
+        if piece.piece=="Pawn":
+            if moveto(piece.x,piece.y+colorrev(piece.color,1),piece.color,False,False): possible.append([piece.x,piece.y+colorrev(piece.color,1)])
+            if moveto(piece.x+1,piece.y+colorrev(piece.color,1),piece.color,True,True): possible.append([piece.x+1,piece.y+colorrev(piece.color,1)])
+            if moveto(piece.x-1,piece.y+colorrev(piece.color,1),piece.color,True,True): possible.append([piece.x-1,piece.y+colorrev(piece.color,1)])
+            if moveto(piece.x,piece.y+colorrev(piece.color,1),piece.color,False,False) and moveto(piece.x,piece.y+colorrev(piece.color,2),piece.color,False,False) and not piece.hasMoved: possible.append([piece.x,piece.y+colorrev(piece.color,2)])
+            #add logic for an en passant here
+        elif piece.piece=="Rook":
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,False,False))
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,False,False))
+        elif piece.piece=="Knight":
+            if moveto(piece.x+1,piece.y+2,piece.color,True,False): possible.append([piece.x+1,piece.y+2])
+            if moveto(piece.x-1,piece.y+2,piece.color,True,False): possible.append([piece.x-1,piece.y+2])
+            if moveto(piece.x+1,piece.y-2,piece.color,True,False): possible.append([piece.x+1,piece.y-2])
+            if moveto(piece.x-1,piece.y-2,piece.color,True,False): possible.append([piece.x-1,piece.y-2])
+            if moveto(piece.x+2,piece.y+1,piece.color,True,False): possible.append([piece.x+2,piece.y+1])
+            if moveto(piece.x-2,piece.y+1,piece.color,True,False): possible.append([piece.x-2,piece.y+1])
+            if moveto(piece.x+2,piece.y-1,piece.color,True,False): possible.append([piece.x+2,piece.y-1])
+            if moveto(piece.x-2,piece.y-1,piece.color,True,False): possible.append([piece.x-2,piece.y-1])
+        elif piece.piece=="Bishop":
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False))
+        elif piece.piece=="Queen":
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,False,False))
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,False,False))
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False))
+        elif piece.piece=="King":
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,1,1))
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,1,1))
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,1,1))
+            #add castle logic (also have to consider if knight can move)
     possible.remove("You should not see this.")
     return possible
 def find(piece):
@@ -248,6 +250,7 @@ def checkcheck(piece,possible):
         clone()
         find(piece).x=i[0]
         find(piece).y=i[1]
+        find(check(i)).alive=False
         if kingcheck(find(piece).color): possible.remove(i)
         declone()
     return possible
@@ -358,7 +361,6 @@ def declone():
     brbishop=tempbrbishop
     bqueen=tempbqueen
     bking=tempbking
-#need to check every move every piece could make and run kingcheck on all of those boards to test for checkmate
 wpawn1=chess()
 wpawn2=chess()
 wpawn3=chess()
