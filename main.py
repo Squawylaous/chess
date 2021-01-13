@@ -256,6 +256,10 @@ def clone():
 def declone():
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wlrook,wlknight,wlbishop,wrrook,wrknight,wrbishop,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,blrook,blknight,blbishop,brrook,brknight,brbishop,bqueen,bking,tempwpawn1,tempwpawn2,tempwpawn3,tempwpawn4,tempwpawn5,tempwpawn6,tempwpawn7,tempwpawn8,tempwlrook,tempwlknight,tempwlbishop,tempwrrook,tempwrknight,tempwrbishop,tempwqueen,tempwking,tempbpawn1,tempbpawn2,tempbpawn3,tempbpawn4,tempbpawn5,tempbpawn6,tempbpawn7,tempbpawn8,tempblrook,tempblknight,tempblbishop,tempbrrook,tempbrknight,tempbrbishop,tempbqueen,tempbking
     for piece in ["wpawn1","wpawn2","wpawn3","wpawn4","wpawn5","wpawn6","wpawn7","wpawn8","wlrook","wlknight","wlbishop","wrrook","wrknight","wrbishop","wqueen","wking","bpawn1","bpawn2","bpawn3","bpawn4","bpawn5","bpawn6","bpawn7","bpawn8","blrook","blknight","blbishop","brrook","brknight","brbishop","bqueen","bking"]: [find(piece).color,find(piece).piece,find(piece).x,find(piece).y,find(piece).alive,find(piece).hasMoved,find(piece).extra]=[find("temp"+piece).color,find("temp"+piece).piece,find("temp"+piece).x,find("temp"+piece).y,find("temp"+piece).alive,find("temp"+piece).hasMoved,find("temp"+piece).extra]
+def translateMoveMade(moveMade):
+    if isinstance(moveMade[1],int): moveMade=["A","B","C","D","E","F","G","H"][moveMade[0]-1]+str(moveMade[1])
+    else: moveMade=[["A","B","C","D","E","F","G","H"].index(moveMade[0]+1),int(moveMade[1])]
+    return moveMade
 def display():
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wlrook,wlknight,wlbishop,wrrook,wrknight,wrbishop,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,blrook,blknight,blbishop,brrook,brknight,brbishop,bqueen,bking
     pass
@@ -335,15 +339,24 @@ while play=="y" or play=="Y":
             print("The",swap(color,"w","b"),"player wins!")
         print("You can move the following pieces:",possiblePieces(color)) #add a user frendly print function
         pieceMoveMade=input("What piece do you want to move? ") #make a loop that rejects invalid inputs
-        possible=checkcheck(pieceMoveMade,move(find(pieceMoveMade)))
-        print("You can move",pieceMoveMade,"from "+str(find(pieceMoveMade).x)+","+str(find(pieceMoveMade).y)+" to the following location(s):",possible) #add a user frendly print function
-        moveMade=input("Where do you want to move "+pieceMoveMade+"? ") #make a loop that rejects invalid inputs. also moveMade is [x,y]
+        while True:
+            moveMade=translateMoveMade(input("Where do you want to move "+pieceMoveMade+"? "))
+            if moveMade not in move(find(pieceMoveMade)):
+                print("That's not a vlaid move!")
+                continue
+            elif moveMade not in checkcheck(pieceMoveMade,move(find(pieceMoveMade))):
+                print("That would put your king in check!")
+                continue
+            else: 
+                print(pieceMoveMade,"moved to",translateMoveMade(moveMade))
+                break
         [find(pieceMoveMade).x,find(pieceMoveMade).y]=moveMade
         find(pieceMoveMade).hasMoved=True
         if check(moveMade)!=["none"]: find(check(moveMade)).alive=False
         if find(pieceMoveMade).piece=="Pawn" and moveMade[1]==8+(colorrev(find(pieceMoveMade).color,3.5)-3.5):
             find(pieceMoveMade).piece="Queen" #add a choice
         #set extra in every pawn to false. if true they can be captured via en passant
+        display()
         color=swap(color,"w","b")
         if kingcheck(color): print("The",color,"player is in check.")
     play=input("Do you want to play again? (Y/N) ")
