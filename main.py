@@ -124,19 +124,20 @@ def kingcheck(color):
         elif xy in move(bqueen.x,bqueen.y): return True
         elif xy in move(bking.x,bking.y): return True
         else: return False
-def moveto(x,y,color,canCapture,mustCapture):
+def moveto(x,y,color,canCapture=True,mustCapture=False):
     if (check([x,y])=="none" and not mustCapture): return True
     elif not isinstance(check([x,y]),str):
         if (check([x,y]).color!=color and canCapture): return True 
     else: return False
     #mustCapture and canCapture are really just for pawns but i guess you could make custom pieces lol.
-def linearmoveto(x,y,color,canCapture,mustCapture,acrossx,acrossy,xlimit,ylimit): #add a directional specifier for x and y (x/ydirec?)
+def linearmoveto(x,y,color,acrossx,acrossy,xlimit=False,ylimit=False,canCapture=True,mustCapture=False):
+    #add a directional specifier for x and y (x/ydirec?), minimun movement (x/ymin) and if movement can pass through peices
     possible=["You should not see this."]
     if xlimit:
         xplim=x+xlimit+1
         xnlim=x-xlimit-1
     else:
-        xplim=9 #for customizing add a custom board size thing (or just change the 9 to one mor than the x if i didnt do that)
+        xplim=9 #for customizing add a custom board size thing (or just change the 9 to one more than the x if i didnt do that)
         xnlim=0
     if ylimit:
         yplim=y+ylimit+1
@@ -180,33 +181,33 @@ def move(piece):
     possible=["You should not see this."]
     if piece.alive:
         if piece.piece=="Pawn":
-            if moveto(piece.x,piece.y+colorrev(piece.color,1),piece.color,False,False): possible.append([piece.x,piece.y+colorrev(piece.color,1)])
+            if moveto(piece.x,piece.y+colorrev(piece.color,1),piece.color,False): possible.append([piece.x,piece.y+colorrev(piece.color,1)])
             if moveto(piece.x+1,piece.y+colorrev(piece.color,1),piece.color,True,True): possible.append([piece.x+1,piece.y+colorrev(piece.color,1)])
             if moveto(piece.x-1,piece.y+colorrev(piece.color,1),piece.color,True,True): possible.append([piece.x-1,piece.y+colorrev(piece.color,1)])
-            if moveto(piece.x,piece.y+colorrev(piece.color,1),piece.color,False,False) and moveto(piece.x,piece.y+colorrev(piece.color,2),piece.color,False,False) and not piece.hasMoved: possible.append([piece.x,piece.y+colorrev(piece.color,2)])
+            if moveto(piece.x,piece.y+colorrev(piece.color,1),piece.color,False) and moveto(piece.x,piece.y+colorrev(piece.color,2),piece.color,False) and not piece.hasMoved: possible.append([piece.x,piece.y+colorrev(piece.color,2)])
             #add logic for an en passant here
         elif piece.piece=="Rook":
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,False,False))
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,False,False))
+            if linearmoveto(piece.x,piece.y,piece.color,True,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False))
+            if linearmoveto(piece.x,piece.y,piece.color,False,True): possible.extend(linearmoveto(piece.x,piece.y,piece.color,False,True))
         elif piece.piece=="Knight":
-            if moveto(piece.x+1,piece.y+2,piece.color,True,False): possible.append([piece.x+1,piece.y+2])
-            if moveto(piece.x-1,piece.y+2,piece.color,True,False): possible.append([piece.x-1,piece.y+2])
-            if moveto(piece.x+1,piece.y-2,piece.color,True,False): possible.append([piece.x+1,piece.y-2])
-            if moveto(piece.x-1,piece.y-2,piece.color,True,False): possible.append([piece.x-1,piece.y-2])
-            if moveto(piece.x+2,piece.y+1,piece.color,True,False): possible.append([piece.x+2,piece.y+1])
-            if moveto(piece.x-2,piece.y+1,piece.color,True,False): possible.append([piece.x-2,piece.y+1])
-            if moveto(piece.x+2,piece.y-1,piece.color,True,False): possible.append([piece.x+2,piece.y-1])
-            if moveto(piece.x-2,piece.y-1,piece.color,True,False): possible.append([piece.x-2,piece.y-1])
+            if moveto(piece.x+1,piece.y+2,piece.color): possible.append([piece.x+1,piece.y+2])
+            if moveto(piece.x-1,piece.y+2,piece.color): possible.append([piece.x-1,piece.y+2])
+            if moveto(piece.x+1,piece.y-2,piece.color): possible.append([piece.x+1,piece.y-2])
+            if moveto(piece.x-1,piece.y-2,piece.color): possible.append([piece.x-1,piece.y-2])
+            if moveto(piece.x+2,piece.y+1,piece.color): possible.append([piece.x+2,piece.y+1])
+            if moveto(piece.x-2,piece.y+1,piece.color): possible.append([piece.x-2,piece.y+1])
+            if moveto(piece.x+2,piece.y-1,piece.color): possible.append([piece.x+2,piece.y-1])
+            if moveto(piece.x-2,piece.y-1,piece.color): possible.append([piece.x-2,piece.y-1])
         elif piece.piece=="Bishop":
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False))
+            if linearmoveto(piece.x,piece.y,piece.color,True,True): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,True))
         elif piece.piece=="Queen":
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,False,False))
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,False,False))
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False))
+            if linearmoveto(piece.x,piece.y,piece.color,True,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False))
+            if linearmoveto(piece.x,piece.y,piece.color,False,True): possible.extend(linearmoveto(piece.x,piece.y,piece.color,False,True))
+            if linearmoveto(piece.x,piece.y,piece.color,True,True): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,True))
         elif piece.piece=="King":
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,False,1,1))
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,False,True,1,1))
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,False,False): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,True,True,1,1))
+            if linearmoveto(piece.x,piece.y,piece.color,True,False,1,1): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,1,1))
+            if linearmoveto(piece.x,piece.y,piece.color,False,True,1,1): possible.extend(linearmoveto(piece.x,piece.y,piece.color,False,True,1,1))
+            if linearmoveto(piece.x,piece.y,piece.color,True,True,1,1): possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,True,1,1))
             #add castle logic (also have to consider if knight can move)
     possible.remove("You should not see this.")
     return possible
