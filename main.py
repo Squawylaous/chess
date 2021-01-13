@@ -9,43 +9,40 @@ def swap(swap,x,y):
     if swap==x: return y
     if swap==y: return x
 def pos(piece,x,y): [piece.x,piece.y]=[x,y]
-def create(piece,c,p,x,y):
-    [piece.color,piece.piece,piece.x,piece.y]=[c,p,x,y]
-    return piece
 def reset():
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wlrook,wlknight,wlbishop,wrrook,wrknight,wrbishop,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,blrook,blknight,blbishop,brrook,brknight,brbishop,bqueen,bking
-    create(wpawn1,"w","Pawn",1,2)
-    create(wpawn2,"w","Pawn",2,2)
-    create(wpawn3,"w","Pawn",3,2)
-    create(wpawn4,"w","Pawn",4,2)
-    create(wpawn5,"w","Pawn",5,2)
-    create(wpawn6,"w","Pawn",6,2)
-    create(wpawn7,"w","Pawn",7,2)
-    create(wpawn8,"w","Pawn",8,2)
-    create(wlrook,"w","Rook",1,1)
-    create(wlknight,"w","Knight",2,1)
-    create(wlbishop,"w","Bishop",3,1)
-    create(wrrook,"w","Rook",8,1)
-    create(wrknight,"w","Knight",7,1)
-    create(wrbishop,"w","Bishop",6,1)
-    create(wqueen,"w","Queen",4,1)
-    create(wking,"w","King",5,1)
-    create(bpawn1,"b","Pawn",8,7)
-    create(bpawn2,"b","Pawn",7,7)
-    create(bpawn3,"b","Pawn",6,7)
-    create(bpawn4,"b","Pawn",5,7)
-    create(bpawn5,"b","Pawn",4,7)
-    create(bpawn6,"b","Pawn",3,7)
-    create(bpawn7,"b","Pawn",2,7)
-    create(bpawn8,"b","Pawn",1,7)
-    create(blrook,"b","Rook",8,8)
-    create(blknight,"b","Knight",7,8)
-    create(blbishop,"b","Bishop",6,8)
-    create(brrook,"b","Rook",1,8)
-    create(brknight,"b","Knight",2,8)
-    create(brbishop,"b","Bishop",3,8)
-    create(bqueen,"b","Queen",4,8)
-    create(bking,"b","King",5,8)
+    [wpawn1.color,wpawn1.piece,wpawn1.x,wpawn1.y]=["w","Pawn",1,2]
+    [wpawn2.color,wpawn2.piece,wpawn2.x,wpawn2.y]=["w","Pawn",2,2]
+    [wpawn3.color,wpawn3.piece,wpawn3.x,wpawn3.y]=["w","Pawn",3,2]
+    [wpawn4.color,wpawn4.piece,wpawn4.x,wpawn4.y]=["w","Pawn",4,2]
+    [wpawn5.color,wpawn5.piece,wpawn5.x,wpawn5.y]=["w","Pawn",5,2]
+    [wpawn6.color,wpawn6.piece,wpawn6.x,wpawn6.y]=["w","Pawn",6,2]
+    [wpawn7.color,wpawn7.piece,wpawn7.x,wpawn7.y]=["w","Pawn",7,2]
+    [wpawn8.color,wpawn8.piece,wpawn8.x,wpawn8.y]=["w","Pawn",8,2]
+    [wlrook.color,wlrook.piece,wlrook.x,wlrook.y]=["w","Rook",1,1]
+    [wlknight.color,wlknight.piece,wlknight.x,wlknight.y]=["w","Knight",2,1]
+    [wlbishop.color,wlbishop.piece,wlbishop.x,wlbishop.y]=["w","Bishop",3,1]
+    [wrrook.color,wrrook.piece,wrrook.x,wrrook.y]=["w","Rook",8,1]
+    [wrknight.color,wrknight.piece,wrknight.x,wrknight.y]=["w","Knight",7,1]
+    [wrbishop.color,wrbishop.piece,wrbishop.x,wrbishop.y]=["w","Bishop",6,1]
+    [wqueen.color,wqueen.piece,wqueen.x,wqueen.y]=["w","Queen",4,1]
+    [wking.color,wking.piece,wking.x,wking.y]=["w","King",5,1]
+    [bpawn1.color,bpawn1.piece,bpawn1.x,bpawn1.y]=["b","Pawn",8,7]
+    [bpawn2.color,bpawn2.piece,bpawn2.x,bpawn2.y]=["b","Pawn",7,7]
+    [bpawn3.color,bpawn3.piece,bpawn3.x,bpawn3.y]=["b","Pawn",6,7]
+    [bpawn4.color,bpawn4.piece,bpawn4.x,bpawn4.y]=["b","Pawn",5,7]
+    [bpawn5.color,bpawn5.piece,bpawn5.x,bpawn5.y]=["b","Pawn",4,7]
+    [bpawn6.color,bpawn6.piece,bpawn6.x,bpawn6.y]=["b","Pawn",3,7]
+    [bpawn7.color,bpawn7.piece,bpawn7.x,bpawn7.y]=["b","Pawn",2,7]
+    [bpawn8.color,bpawn8.piece,bpawn8.x,bpawn8.y]=["b","Pawn",1,7]
+    [blrook.color,blrook.piece,blrook.x,blrook.y]=["b","Rook",8,8]
+    [blknight.color,blknight.piece,blknight.x,blknight.y]=["b","Knight",7,8]
+    [blbishop.color,blbishop.piece,blbishop.x,blbishop.y]=["b","Bishop",6,8]
+    [brrook.color,brrook.piece,brrook.x,brrook.y]=["b","Rook",1,8]
+    [brknight.color,brknight.piece,brknight.x,brknight.y]=["b","Knight",2,8]
+    [brbishop.color,brbishop.piece,brbishop.x,brbishop.y]=["b","Bishop",3,8]
+    [bqueen.color,bqueen.piece,bqueen.x,bqueen.y]=["b","Queen",4,8]
+    [bking.color,bking.piece,bking.x,bking.y]=["b","King",5,8]
 def colorrev(color,x):
     if color=="w": return x
     else: return -1*x
@@ -89,40 +86,40 @@ def kingcheck(color):
     if color=="b":
         xy=[bking.x,bking.y]
         if xy in move(wpawn1): return True
-        elif xy in move(wpawn2.x,wpawn2.y): return True
-        elif xy in move(wpawn3.x,wpawn3.y): return True
-        elif xy in move(wpawn4.x,wpawn4.y): return True
-        elif xy in move(wpawn5.x,wpawn5.y): return True
-        elif xy in move(wpawn6.x,wpawn6.y): return True
-        elif xy in move(wpawn7.x,wpawn7.y): return True
-        elif xy in move(wpawn8.x,wpawn8.y): return True
-        elif xy in move(wlrook.x,wlrook.y): return True
-        elif xy in move(wlknight.x,wlknight.y): return True
-        elif xy in move(wlbishop.x,wlbishop.y): return True
-        elif xy in move(wrrook.x,wrrook.y): return True
-        elif xy in move(wrknight.x,wrknight.y): return True
-        elif xy in move(wrbishop.x,wrbishop.y): return True
-        elif xy in move(wqueen.x,wqueen.y): return True
-        elif xy in move(wking.x,wking.y): return True
+        elif xy in move(wpawn2): return True
+        elif xy in move(wpawn3): return True
+        elif xy in move(wpawn4): return True
+        elif xy in move(wpawn5): return True
+        elif xy in move(wpawn6): return True
+        elif xy in move(wpawn7): return True
+        elif xy in move(wpawn8): return True
+        elif xy in move(wlrook): return True
+        elif xy in move(wlknight): return True
+        elif xy in move(wlbishop): return True
+        elif xy in move(wrrook): return True
+        elif xy in move(wrknight): return True
+        elif xy in move(wrbishop): return True
+        elif xy in move(wqueen): return True
+        elif xy in move(wking): return True
         else: return False
     else:
         xy=[wking.x,wking.y]
-        if xy in move(bpawn1.x,bpawn1.y): return True
-        elif xy in move(bpawn2.x,bpawn2.y): return True
-        elif xy in move(bpawn3.x,bpawn3.y): return True
-        elif xy in move(bpawn4.x,bpawn4.y): return True
-        elif xy in move(bpawn5.x,bpawn5.y): return True
-        elif xy in move(bpawn6.x,bpawn6.y): return True
-        elif xy in move(bpawn7.x,bpawn7.y): return True
-        elif xy in move(bpawn8.x,bpawn8.y): return True
-        elif xy in move(blrook.x,blrook.y): return True
-        elif xy in move(blknight.x,blknight.y): return True
-        elif xy in move(blbishop.x,blbishop.y): return True
-        elif xy in move(brrook.x,brrook.y): return True
-        elif xy in move(brknight.x,brknight.y): return True
-        elif xy in move(brbishop.x,brbishop.y): return True
-        elif xy in move(bqueen.x,bqueen.y): return True
-        elif xy in move(bking.x,bking.y): return True
+        if xy in move(bpawn1): return True
+        elif xy in move(bpawn2): return True
+        elif xy in move(bpawn3): return True
+        elif xy in move(bpawn4): return True
+        elif xy in move(bpawn5): return True
+        elif xy in move(bpawn6): return True
+        elif xy in move(bpawn7): return True
+        elif xy in move(bpawn8): return True
+        elif xy in move(blrook): return True
+        elif xy in move(blknight): return True
+        elif xy in move(blbishop): return True
+        elif xy in move(brrook): return True
+        elif xy in move(brknight): return True
+        elif xy in move(brbishop): return True
+        elif xy in move(bqueen): return True
+        elif xy in move(bking): return True
         else: return False
 def moveto(x,y,color,canCapture=True,mustCapture=False):
     if (check([x,y])=="none" and not mustCapture): return True
@@ -245,13 +242,45 @@ def find(piece):
     elif piece=="brbishop": return brbishop
     elif piece=="bqueen": return bqueen
     elif piece=="bking": return bking
+    elif piece=="tempwpawn1": return tempwpawn1
+    elif piece=="tempwpawn2": return tempwpawn2
+    elif piece=="tempwpawn3": return tempwpawn3
+    elif piece=="tempwpawn4": return tempwpawn4
+    elif piece=="tempwpawn5": return tempwpawn5
+    elif piece=="tempwpawn6": return tempwpawn6
+    elif piece=="tempwpawn7": return tempwpawn7
+    elif piece=="tempwpawn8": return tempwpawn8
+    elif piece=="tempwlrook": return tempwlrook
+    elif piece=="tempwlknight": return tempwlknight
+    elif piece=="tempwlbishop": return tempwlbishop
+    elif piece=="tempwrrook": return tempwrrook
+    elif piece=="tempwrknight": return tempwrknight
+    elif piece=="tempwrbishop": return tempwrbishop
+    elif piece=="tempwqueen": return tempwqueen
+    elif piece=="tempwking": return tempwking
+    elif piece=="tempbpawn1": return tempbpawn1
+    elif piece=="tempbpawn2": return tempbpawn2
+    elif piece=="tempbpawn3": return tempbpawn3
+    elif piece=="tempbpawn4": return tempbpawn4
+    elif piece=="tempbpawn5": return tempbpawn5
+    elif piece=="tempbpawn6": return tempbpawn6
+    elif piece=="tempbpawn7": return tempbpawn7
+    elif piece=="tempbpawn8": return tempbpawn8
+    elif piece=="tempblrook": return tempblrook
+    elif piece=="tempblknight": return tempblknight
+    elif piece=="tempblbishop": return tempblbishop
+    elif piece=="tempbrrook": return tempbrrook
+    elif piece=="tempbrknight": return tempbrknight
+    elif piece=="tempbrbishop": return tempbrbishop
+    elif piece=="tempbqueen": return tempbqueen
+    elif piece=="tempbking": return tempbking
 def checkcheck(piece,possible):
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wlrook,wlknight,wlbishop,wrrook,wrknight,wrbishop,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,blrook,blknight,blbishop,brrook,brknight,brbishop,bqueen,bking,tempwpawn1,tempwpawn2,tempwpawn3,tempwpawn4,tempwpawn5,tempwpawn6,tempwpawn7,tempwpawn8,tempwlrook,tempwlknight,tempwlbishop,tempwrrook,tempwrknight,tempwrbishop,tempwqueen,tempwking,tempbpawn1,tempbpawn2,tempbpawn3,tempbpawn4,tempbpawn5,tempbpawn6,tempbpawn7,tempbpawn8,tempblrook,tempblknight,tempblbishop,tempbrrook,tempbrknight,tempbrbishop,tempbqueen,tempbking
     for i in possible:
         clone()
         find(piece).x=i[0]
         find(piece).y=i[1]
-        find(check(i)).alive=False
+        if check(i)!="none": find(check(i)).alive=False
         if kingcheck(find(piece).color): possible.remove(i)
         declone()
     return possible
@@ -259,109 +288,49 @@ def possiblePieces(color):
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wlrook,wlknight,wlbishop,wrrook,wrknight,wrbishop,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,blrook,blknight,blbishop,brrook,brknight,brbishop,bqueen,bking
     possible=[]
     if color=="w":
-        if checkcheck(wpawn1,move(wpawn1)): possible.append("wpawn1")
-        if checkcheck(wpawn2,move(wpawn2)): possible.append("wpawn2")
-        if checkcheck(wpawn3,move(wpawn3)): possible.append("wpawn3")
-        if checkcheck(wpawn4,move(wpawn4)): possible.append("wpawn4")
-        if checkcheck(wpawn5,move(wpawn5)): possible.append("wpawn5")
-        if checkcheck(wpawn6,move(wpawn6)): possible.append("wpawn6")
-        if checkcheck(wpawn7,move(wpawn7)): possible.append("wpawn7")
-        if checkcheck(wpawn8,move(wpawn8)): possible.append("wpawn8")
-        if checkcheck(wlrook,move(wlrook)): possible.append("wlrook")
-        if checkcheck(wlknight,move(wlknight)): possible.append("wlknight")
-        if checkcheck(wlbishop,move(wlbishop)): possible.append("wlbishop")
-        if checkcheck(wrrook,move(wrrook)): possible.append("wrrook")
-        if checkcheck(wrknight,move(wrknight)): possible.append("wrknight")
-        if checkcheck(wrbishop,move(wrbishop)): possible.append("wrbishop")
-        if checkcheck(wqueen,move(wqueen)): possible.append("wqueen")
-        if checkcheck(wking,move(wking)): possible.append("wking")
+        if checkcheck("wpawn1",move(wpawn1)): possible.append("wpawn1")
+        if checkcheck("wpawn2",move(wpawn2)): possible.append("wpawn2")
+        if checkcheck("wpawn3",move(wpawn3)): possible.append("wpawn3")
+        if checkcheck("wpawn4",move(wpawn4)): possible.append("wpawn4")
+        if checkcheck("wpawn5",move(wpawn5)): possible.append("wpawn5")
+        if checkcheck("wpawn6",move(wpawn6)): possible.append("wpawn6")
+        if checkcheck("wpawn7",move(wpawn7)): possible.append("wpawn7")
+        if checkcheck("wpawn8",move(wpawn8)): possible.append("wpawn8")
+        if checkcheck("wlrook",move(wlrook)): possible.append("wlrook")
+        if checkcheck("wlknight",move(wlknight)): possible.append("wlknight")
+        if checkcheck("wlbishop",move(wlbishop)): possible.append("wlbishop")
+        if checkcheck("wrrook",move(wrrook)): possible.append("wrrook")
+        if checkcheck("wrknight",move(wrknight)): possible.append("wrknight")
+        if checkcheck("wrbishop",move(wrbishop)): possible.append("wrbishop")
+        if checkcheck("wqueen",move(wqueen)): possible.append("wqueen")
+        if checkcheck("wking",move(wking)): possible.append("wking")
     else:
-        if checkcheck(bpawn1,move(bpawn1)): possible.append("bpawn1")
-        if checkcheck(bpawn2,move(bpawn2)): possible.append("bpawn2")
-        if checkcheck(bpawn3,move(bpawn3)): possible.append("bpawn3")
-        if checkcheck(bpawn4,move(bpawn4)): possible.append("bpawn4")
-        if checkcheck(bpawn5,move(bpawn5)): possible.append("bpawn5")
-        if checkcheck(bpawn6,move(bpawn6)): possible.append("bpawn6")
-        if checkcheck(bpawn7,move(bpawn7)): possible.append("bpawn7")
-        if checkcheck(bpawn8,move(bpawn8)): possible.append("bpawn8")
-        if checkcheck(blrook,move(blrook)): possible.append("blrook")
-        if checkcheck(blknight,move(blknight)): possible.append("blknight")
-        if checkcheck(blbishop,move(blbishop)): possible.append("blbishop")
-        if checkcheck(brrook,move(brrook)): possible.append("brrook")
-        if checkcheck(brknight,move(brknight)): possible.append("brknight")
-        if checkcheck(brbishop,move(brbishop)): possible.append("brbishop")
-        if checkcheck(bqueen,move(bqueen)): possible.append("bqueen")
-        if checkcheck(bking,move(bking)): possible.append("bking")
+        if checkcheck("bpawn1",move(bpawn1)): possible.append("bpawn1")
+        if checkcheck("bpawn2",move(bpawn2)): possible.append("bpawn2")
+        if checkcheck("bpawn3",move(bpawn3)): possible.append("bpawn3")
+        if checkcheck("bpawn4",move(bpawn4)): possible.append("bpawn4")
+        if checkcheck("bpawn5",move(bpawn5)): possible.append("bpawn5")
+        if checkcheck("bpawn6",move(bpawn6)): possible.append("bpawn6")
+        if checkcheck("bpawn7",move(bpawn7)): possible.append("bpawn7")
+        if checkcheck("bpawn8",move(bpawn8)): possible.append("bpawn8")
+        if checkcheck("blrook",move(blrook)): possible.append("blrook")
+        if checkcheck("blknight",move(blknight)): possible.append("blknight")
+        if checkcheck("blbishop",move(blbishop)): possible.append("blbishop")
+        if checkcheck("brrook",move(brrook)): possible.append("brrook")
+        if checkcheck("brknight",move(brknight)): possible.append("brknight")
+        if checkcheck("brbishop",move(brbishop)): possible.append("brbishop")
+        if checkcheck("bqueen",move(bqueen)): possible.append("bqueen")
+        if checkcheck("bking",move(bking)): possible.append("bking")
     return possible
 def clone():
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wlrook,wlknight,wlbishop,wrrook,wrknight,wrbishop,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,blrook,blknight,blbishop,brrook,brknight,brbishop,bqueen,bking,tempwpawn1,tempwpawn2,tempwpawn3,tempwpawn4,tempwpawn5,tempwpawn6,tempwpawn7,tempwpawn8,tempwlrook,tempwlknight,tempwlbishop,tempwrrook,tempwrknight,tempwrbishop,tempwqueen,tempwking,tempbpawn1,tempbpawn2,tempbpawn3,tempbpawn4,tempbpawn5,tempbpawn6,tempbpawn7,tempbpawn8,tempblrook,tempblknight,tempblbishop,tempbrrook,tempbrknight,tempbrbishop,tempbqueen,tempbking
-    tempwpawn1=wpawn1
-    tempwpawn2=wpawn2
-    tempwpawn3=wpawn3
-    tempwpawn4=wpawn4
-    tempwpawn5=wpawn5
-    tempwpawn6=wpawn6
-    tempwpawn7=wpawn7
-    tempwpawn8=wpawn8
-    tempwlrook=wlrook
-    tempwlknight=wlknight
-    tempwlbishop=wlbishop
-    tempwrrook=wrrook
-    tempwrknight=wrknight
-    tempwrbishop=wrbishop
-    tempwqueen=wqueen
-    tempwking=wking
-    tempbpawn1=bpawn1
-    tempbpawn2=bpawn2
-    tempbpawn3=bpawn3
-    tempbpawn4=bpawn4
-    tempbpawn5=bpawn5
-    tempbpawn6=bpawn6
-    tempbpawn7=bpawn7
-    tempbpawn8=bpawn8
-    tempblrook=blrook
-    tempblknight=blknight
-    tempblknight=blknight
-    tempblbishop=blbishop
-    tempbrrook=brrook
-    tempbrknight=brknight
-    tempbrbishop=brbishop
-    tempbqueen=bqueen
-    tempbking=bking
+    for piece in ["wpawn1","wpawn2","wpawn3","wpawn4","wpawn5","wpawn6","wpawn7","wpawn8","wlrook","wlknight","wlbishop","wrrook","wrknight","wrbishop","wqueen","wking","bpawn1","bpawn2","bpawn3","bpawn4","bpawn5","bpawn6","bpawn7","bpawn8","blrook","blknight","blbishop","brrook","brknight","brbishop","bqueen","bking"]: [find("temp"+piece).color,find("temp"+piece).piece,find("temp"+piece).x,find("temp"+piece).y,find("temp"+piece).alive]=[find(piece).color,find(piece).piece,find(piece).x,find(piece).y,find(piece).alive]
 def declone():
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wlrook,wlknight,wlbishop,wrrook,wrknight,wrbishop,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,blrook,blknight,blbishop,brrook,brknight,brbishop,bqueen,bking,tempwpawn1,tempwpawn2,tempwpawn3,tempwpawn4,tempwpawn5,tempwpawn6,tempwpawn7,tempwpawn8,tempwlrook,tempwlknight,tempwlbishop,tempwrrook,tempwrknight,tempwrbishop,tempwqueen,tempwking,tempbpawn1,tempbpawn2,tempbpawn3,tempbpawn4,tempbpawn5,tempbpawn6,tempbpawn7,tempbpawn8,tempblrook,tempblknight,tempblbishop,tempbrrook,tempbrknight,tempbrbishop,tempbqueen,tempbking
-    wpawn1=tempwpawn1
-    wpawn2=tempwpawn2
-    wpawn3=tempwpawn3
-    wpawn4=tempwpawn4
-    wpawn5=tempwpawn5
-    wpawn6=tempwpawn6
-    wpawn7=tempwpawn7
-    wpawn8=tempwpawn8
-    wlrook=tempwlrook
-    wlknight=tempwlknight
-    wlbishop=tempwlbishop
-    wrrook=tempwrrook
-    wrknight=tempwrknight
-    wrbishop=tempwrbishop
-    wqueen=tempwqueen
-    wking=tempwking
-    bpawn1=tempbpawn1
-    bpawn2=tempbpawn2
-    bpawn3=tempbpawn3
-    bpawn4=tempbpawn4
-    bpawn5=tempbpawn5
-    bpawn6=tempbpawn6
-    bpawn7=tempbpawn7
-    bpawn8=tempbpawn8
-    blrook=tempblrook
-    blknight=tempblknight
-    blbishop=tempblbishop
-    brrook=tempbrrook
-    brknight=tempbrknight
-    brbishop=tempbrbishop
-    bqueen=tempbqueen
-    bking=tempbking
+    for piece in ["wpawn1","wpawn2","wpawn3","wpawn4","wpawn5","wpawn6","wpawn7","wpawn8","wlrook","wlknight","wlbishop","wrrook","wrknight","wrbishop","wqueen","wking","bpawn1","bpawn2","bpawn3","bpawn4","bpawn5","bpawn6","bpawn7","bpawn8","blrook","blknight","blbishop","brrook","brknight","brbishop","bqueen","bking"]: [find(piece).color,find(piece).piece,find(piece).x,find(piece).y,find(piece).alive]=[find("temp"+piece).color,find("temp"+piece).piece,find("temp"+piece).x,find("temp"+piece).y,find("temp"+piece).alive]
+def display():
+    pass
+    #♔♕♖♗♘♙♚♛♜♝♞♟︎
 wpawn1=chess()
 wpawn2=chess()
 wpawn3=chess()
@@ -394,9 +363,42 @@ brknight=chess()
 brbishop=chess()
 bqueen=chess()
 bking=chess()
+tempwpawn1=chess()
+tempwpawn2=chess()
+tempwpawn3=chess()
+tempwpawn4=chess()
+tempwpawn5=chess()
+tempwpawn6=chess()
+tempwpawn7=chess()
+tempwpawn8=chess()
+tempwlrook=chess()
+tempwlknight=chess()
+tempwlbishop=chess()
+tempwrrook=chess()
+tempwrknight=chess()
+tempwrbishop=chess()
+tempwqueen=chess()
+tempwking=chess()
+tempbpawn1=chess()
+tempbpawn2=chess()
+tempbpawn3=chess()
+tempbpawn4=chess()
+tempbpawn5=chess()
+tempbpawn6=chess()
+tempbpawn7=chess()
+tempbpawn8=chess()
+tempblrook=chess()
+tempblknight=chess()
+tempblbishop=chess()
+tempbrrook=chess()
+tempbrknight=chess()
+tempbrbishop=chess()
+tempbqueen=chess()
+tempbking=chess()
 reset()
+color="w"
 print("You can move the following pieces:",possiblePieces("w"))
 d=input("What piece do you want to move? ")
-dd=find(d)
-possible=checkcheck(dd,move(dd))
-print("You can move",str(dd),"from ["+str(dd.x)+","+str(dd.y)+"] to the following location(s):",possible,"\n",)
+possible=checkcheck(d,move(find(d)))
+print("You can move",d,"from ["+str(find(d).x)+","+str(find(d).y)+"] to the following location(s):",possible)
+print("Goodbye!")
