@@ -73,21 +73,21 @@ def colorrev(color,x):
     if color=="w": return x
     else: return -1*x
 def check(xy):
-    global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wrook1,wknight1,wbishop1,wrook2,wknight2,wbishop2,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,brook1,bknight1,bbishop1,brook2,bknight2,bbishop2,bqueen,bking
+    global allPieces,wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wrook1,wknight1,wbishop1,wrook2,wknight2,wbishop2,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,brook1,bknight1,bbishop1,brook2,bknight2,bbishop2,bqueen,bking
     ret="none"
-    for piece in ["wpawn1","wpawn2","wpawn3","wpawn4","wpawn5","wpawn6","wpawn7","wpawn8","wrook1","wknight1","wbishop1","wrook2","wknight2","wbishop2","wqueen","wking","bpawn1","bpawn2","bpawn3","bpawn4","bpawn5","bpawn6","bpawn7","bpawn8","brook1","bknight1","bbishop1","brook2","bknight2","bbishop2","bqueen","bking"]:
+    for piece in allPieces:
         if xy==[find(piece).x,find(piece).y]and find(piece).alive: ret=piece
     return ret
 def kingcheck(color):
-    global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wrook1,wknight1,wbishop1,wrook2,wknight2,wbishop2,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,brook1,bknight1,bbishop1,brook2,bknight2,bbishop2,bqueen,bking
+    global allPieces,wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wrook1,wknight1,wbishop1,wrook2,wknight2,wbishop2,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,brook1,bknight1,bbishop1,brook2,bknight2,bbishop2,bqueen,bking
     ret=False
     if color=="b":
         xy=[bking.x,bking.y]
-        for piece in ["wpawn1","wpawn2","wpawn3","wpawn4","wpawn5","wpawn6","wpawn7","wpawn8","wrook1","wknight1","wbishop1","wrook2","wknight2","wbishop2","wqueen","wking"]:
+        for piece in allPieces:
             if xy in move(find(piece)): ret=True
     else:
         xy=[wking.x,wking.y]
-        for piece in ["bpawn1","bpawn2","bpawn3","bpawn4","bpawn5","bpawn6","bpawn7","bpawn8","brook1","bknight1","bbishop1","brook2","bknight2","bbishop2","bqueen","bking"]:
+        for piece in allPieces:
             if xy in move(find(piece)): ret=True
     return ret
 def moveto(x,y,color,canCapture=True,mustCapture=False):
@@ -269,19 +269,19 @@ def possiblePieces(color):
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wrook1,wknight1,wbishop1,wrook2,wknight2,wbishop2,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,brook1,bknight1,bbishop1,brook2,bknight2,bbishop2,bqueen,bking
     possible=["none"]
     if color=="w":
-        for piece in ["wpawn1","wpawn2","wpawn3","wpawn4","wpawn5","wpawn6","wpawn7","wpawn8","wrook1","wknight1","wbishop1","wrook2","wknight2","wbishop2","wqueen","wking"]:
-            if checkcheck(piece,move(find(piece))): possible.append(piece)
+        for piece in allPieces:
+            if checkcheck(piece,move(find(piece))) and find(piece).color=="w": possible.append(piece)
     else:
-        for piece in ["bpawn1","bpawn2","bpawn3","bpawn4","bpawn5","bpawn6","bpawn7","bpawn8","brook1","bknight1","bbishop1","brook2","bknight2","bbishop2","bqueen","bking"]:
-            if checkcheck(piece,move(find(piece))): possible.append(piece)
+        for piece in allPieces:
+            if checkcheck(piece,move(find(piece))) and find(piece).color=="b": possible.append(piece)
     if len(possible)>1:possible.remove("none")
     return possible
 def clone():
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wrook1,wknight1,wbishop1,wrook2,wknight2,wbishop2,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,brook1,bknight1,bbishop1,brook2,bknight2,bbishop2,bqueen,bking,tempwpawn1,tempwpawn2,tempwpawn3,tempwpawn4,tempwpawn5,tempwpawn6,tempwpawn7,tempwpawn8,tempwrook1,tempwknight1,tempwbishop1,tempwrook2,tempwknight2,tempwbishop2,tempwqueen,tempwking,tempbpawn1,tempbpawn2,tempbpawn3,tempbpawn4,tempbpawn5,tempbpawn6,tempbpawn7,tempbpawn8,tempbrook1,tempbknight1,tempbbishop1,tempbrook2,tempbknight2,tempbbishop2,tempbqueen,tempbking
-    for piece in ["wpawn1","wpawn2","wpawn3","wpawn4","wpawn5","wpawn6","wpawn7","wpawn8","wrook1","wknight1","wbishop1","wrook2","wknight2","wbishop2","wqueen","wking","bpawn1","bpawn2","bpawn3","bpawn4","bpawn5","bpawn6","bpawn7","bpawn8","brook1","bknight1","bbishop1","brook2","bknight2","bbishop2","bqueen","bking"]: [find("temp"+piece).color,find("temp"+piece).piece,find("temp"+piece).x,find("temp"+piece).y,find("temp"+piece).alive,find("temp"+piece).hasMoved,find("temp"+piece).extra]=[find(piece).color,find(piece).piece,find(piece).x,find(piece).y,find(piece).alive,find(piece).hasMoved,find(piece).extra]
+    for piece in allPieces: [find("temp"+piece).color,find("temp"+piece).piece,find("temp"+piece).x,find("temp"+piece).y,find("temp"+piece).alive,find("temp"+piece).hasMoved,find("temp"+piece).extra]=[find(piece).color,find(piece).piece,find(piece).x,find(piece).y,find(piece).alive,find(piece).hasMoved,find(piece).extra]
 def declone():
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wrook1,wknight1,wbishop1,wrook2,wknight2,wbishop2,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,brook1,bknight1,bbishop1,brook2,bknight2,bbishop2,bqueen,bking,tempwpawn1,tempwpawn2,tempwpawn3,tempwpawn4,tempwpawn5,tempwpawn6,tempwpawn7,tempwpawn8,tempwrook1,tempwknight1,tempwbishop1,tempwrook2,tempwknight2,tempwbishop2,tempwqueen,tempwking,tempbpawn1,tempbpawn2,tempbpawn3,tempbpawn4,tempbpawn5,tempbpawn6,tempbpawn7,tempbpawn8,tempbrook1,tempbknight1,tempbbishop1,tempbrook2,tempbknight2,tempbbishop2,tempbqueen,tempbking
-    for piece in ["wpawn1","wpawn2","wpawn3","wpawn4","wpawn5","wpawn6","wpawn7","wpawn8","wrook1","wknight1","wbishop1","wrook2","wknight2","wbishop2","wqueen","wking","bpawn1","bpawn2","bpawn3","bpawn4","bpawn5","bpawn6","bpawn7","bpawn8","brook1","bknight1","bbishop1","brook2","bknight2","bbishop2","bqueen","bking"]: [find(piece).color,find(piece).piece,find(piece).x,find(piece).y,find(piece).alive,find(piece).hasMoved,find(piece).extra]=[find("temp"+piece).color,find("temp"+piece).piece,find("temp"+piece).x,find("temp"+piece).y,find("temp"+piece).alive,find("temp"+piece).hasMoved,find("temp"+piece).extra]
+    for piece in allPieces: [find(piece).color,find(piece).piece,find(piece).x,find(piece).y,find(piece).alive,find(piece).hasMoved,find(piece).extra]=[find("temp"+piece).color,find("temp"+piece).piece,find("temp"+piece).x,find("temp"+piece).y,find("temp"+piece).alive,find("temp"+piece).hasMoved,find("temp"+piece).extra]
 def translateMoveMade(moveMade):
     if isinstance(moveMade[0],int): moveMade=intToAlphabet(moveMade[0])+","+str(moveMade[1])
     else: moveMade=[alphabetToInt(moveMade[:moveMade.index(",")+1]),int(moveMade[moveMade.index(","):])]
@@ -298,7 +298,7 @@ def display():
     global wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wrook1,wknight1,wbishop1,wrook2,wknight2,wbishop2,wqueen,wking,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,brook1,bknight1,bbishop1,brook2,bknight2,bbishop2,bqueen,bking
     pass
     #♔♕♖♗♘♙♚♛♜♝♞♟︎
-#add a list of all piece names strings. use for piece in *list* and usr find(piece) when nedded 
+allPieces=["wpawn1","wpawn2","wpawn3","wpawn4","wpawn5","wpawn6","wpawn7","wpawn8","wlrook","wlknight","wlbishop","wrrook","wrknight","wrbishop","wqueen","wking","bpawn1","bpawn2","bpawn3","bpawn4","bpawn5","bpawn6","bpawn7","bpawn8","blrook","blknight","blbishop","brrook","brknight","brbishop","bqueen","bking"]
 wpawn1=chess()
 wpawn2=chess()
 wpawn3=chess()
