@@ -1,5 +1,6 @@
 class chess:
     name="You're not suppossed to see this."
+    def __init__(self,name): self.name=name
     color="You're not suppossed to see this."
     piece="You're not suppossed to see this."
     x=0
@@ -14,8 +15,7 @@ class chess:
     temphasMoved=False
     tempalive=True
     tempextra=False
-    def reset(self,name,color,piece,x,y,extra):
-        self.name=name
+    def reset(self,color,piece,x,y,extra):
         self.color=color
         self.piece=piece
         self.x=x
@@ -220,71 +220,39 @@ def move(piece):
     possible.remove("You should not see this.")
     return possible
 def reset():
-    wpawn1.reset("wpawn1","w","Pawn",1,2)
-    wpawn2.reset("wpawn2","w","Pawn",2,2)
-    wpawn3.reset("wpawn3","w","Pawn",3,2)
-    wpawn4.reset("wpawn4","w","Pawn",4,2)
-    wpawn5.reset("wpawn5","w","Pawn",5,2)
-    wpawn6.reset("wpawn6","w","Pawn",6,2)
-    wpawn7.reset("wpawn7","w","Pawn",7,2)
-    wpawn8.reset("wpawn8","w","Pawn",8,2)
-    wrook1.reset("wrook1","w","Rook",1,1)
-    wrook2.reset("wrook2","w","Rook",8,1)
-    wknight1.reset("wknight1","w","Knight",2,1)
-    wknight2.reset("wknight2","w","Knight",7,2)
-    wbishop1.reset("wbishop1","w","Bishop",3,1)
-    wbishop2.reset("wbishop2","w","Bishop",6,1)
-    wqueen1.reset("wqueen1","w","Queen",4,1)
-    wking1.reset("wking1","w","King",5,1)
-    bpawn1.reset("bpawn1","b","Pawn",8,7)
-    bpawn2.reset("bpawn2","b","Pawn",7,7)
-    bpawn3.reset("bpawn3","b","Pawn",6,7)
-    bpawn4.reset("bpawn4","b","Pawn",5,7)
-    bpawn5.reset("bpawn5","b","Pawn",4,7)
-    bpawn6.reset("bpawn6","b","Pawn",3,7)
-    bpawn7.reset("bpawn7","b","Pawn",2,7)
-    bpawn8.reset("bpawn8","b","Pawn",1,7)
-    brook1.reset("brook1","b","Rook",8,8)
-    brook2.reset("brook2","b","Rook",1,8)
-    bknight1.reset("bknight1","b","Knight",7,8)
-    bknight2.reset("bknight2","b","Knight",2,8)
-    bbishop1.reset("bbishop1","b","Bishop",6,8)
-    bbishop2.reset("bbishop2","b","Bishop",3,8)
-    bqueen1.reset("bqueen1","b","Queen",4,8)
-    bking1.reset("bking1","b","King",5,8)
-wpawn1=chess()
-wpawn2=chess()
-wpawn3=chess()
-wpawn4=chess()
-wpawn5=chess()
-wpawn6=chess()
-wpawn7=chess()
-wpawn8=chess()
-wrook1=chess()
-wrook2=chess()
-wknight1=chess()
-wknight2=chess()
-wbishop1=chess()
-wbishop2=chess()
-wqueen1=chess()
-wking1=chess()
-bpawn1=chess()
-bpawn2=chess()
-bpawn3=chess()
-bpawn4=chess()
-bpawn5=chess()
-bpawn6=chess()
-bpawn7=chess()
-bpawn8=chess()
-brook1=chess()
-brook2=chess()
-bknight1=chess()
-bknight2=chess()
-bbishop1=chess()
-bbishop2=chess()
-bqueen1=chess()
-bking1=chess()
-allPieces=[wpawn1,wpawn2,wpawn3,wpawn4,wpawn5,wpawn6,wpawn7,wpawn8,wrook1,wknight1,wbishop1,wrook2,wknight2,wbishop2,wqueen1,wking1,bpawn1,bpawn2,bpawn3,bpawn4,bpawn5,bpawn6,bpawn7,bpawn8,brook1,bknight1,bbishop1,brook2,bknight2,bbishop2,bqueen1,bking1]
+    allPieces[0].reset("w","Pawn",1,2)
+    allPieces[2].reset("w","Pawn",2,2)
+    allPieces[2].reset("w","Pawn",3,2)
+    allPieces[3].reset("w","Pawn",4,2)
+    allPieces[4].reset("w","Pawn",5,2)
+    allPieces[5].reset("w","Pawn",6,2)
+    allPieces[6].reset("w","Pawn",7,2)
+    allPieces[7].reset("w","Pawn",8,2)
+    allPieces[8].reset("w","Rook",1,1)
+    allPieces[9].reset("w","Rook",8,1)
+    allPieces[10].reset("w","Knight",2,1)
+    allPieces[11].reset("w","Knight",7,2)
+    allPieces[12].reset("w","Bishop",3,1)
+    allPieces[13].reset("w","Bishop",6,1)
+    allPieces[14].reset("w","Queen",4,1)
+    allPieces[15].reset("w","King",5,1)
+    allPieces[16].reset("b","Pawn",8,7)
+    allPieces[17].reset("b","Pawn",7,7)
+    allPieces[18].reset("b","Pawn",6,7)
+    allPieces[19].reset("b","Pawn",5,7)
+    allPieces[20].reset("b","Pawn",4,7)
+    allPieces[21].reset("b","Pawn",3,7)
+    allPieces[22].reset("b","Pawn",2,7)
+    allPieces[23].reset("b","Pawn",1,7)
+    allPieces[24].reset("b","Rook",8,8)
+    allPieces[25].reset("b","Rook",1,8)
+    allPieces[26].reset("b","Knight",7,8)
+    allPieces[27].reset("b","Knight",2,8)
+    allPieces[28].reset("b","Bishop",6,8)
+    allPieces[29].reset("b","Bishop",3,8)
+    allPieces[30].reset("b","Queen",4,8)
+    allPieces[31].reset("b","King",5,8)
+allPieces=[chess("wpawn1"),chess("wpawn2"),chess("wpawn3"),chess("wpawn4"),chess("wpawn5"),chess("wpawn6"),chess("wpawn7"),chess("wpawn8"),chess("wrook1"),chess("wrook2"),chess("wknight1"),chess("wknight2"),chess("wbishop1"),chess("wbishop2"),chess("wqueen1"),chess("wking1"),chess("bpawn1"),chess("bpawn2"),chess("bpawn3"),chess("bpawn4"),chess("bpawn5"),chess("bpawn6"),chess("bpawn7"),chess("bpawn8"),chess("brook1"),chess("brook2"),chess("bknight1"),chess("bknight2"),chess("bbishop1"),chess("bbishop2"),chess("bqueen1"),chess("bking1")]
 board=[8,8]
 play="y"
 while play=="y" or play=="Y":
