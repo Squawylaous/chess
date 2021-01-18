@@ -63,7 +63,7 @@ def check(xy):
     global allPieces
     ret="none"
     for piece in allPieces:
-        if xy==[piece.x,piece.y]and piece.alive: ret=piece
+        if xy==[piece.x,piece.y] and piece.alive: ret=piece
     return ret
 def kingcheck(color):
     global allPieces
@@ -78,96 +78,113 @@ def kingcheck(color):
             if xy in move(piece): ret=True
     return ret
 def moveto(x,y,color,canCapture=True,mustCapture=False):
-    if (check([x,y])=="none" and not mustCapture): return True
-    elif not isinstance(check([x,y]),str):
-        if (check([x,y]).color!=color and canCapture): return True 
+    check=check([x,y])
+    if (check=="none" and not mustCapture): return True
+    elif not isinstance(check,str):
+        if (check.color!=color and canCapture): return True 
     else: return False
-def linearmoveto(x,y,color,acrossx,acrossy,xlimit=False,ylimit=False,xdirec=0,ydirec=0,xmin=1,ymin=1,canJump=False,canCapture=True,mustCapture=False):
+def linearmoveto(possible,x,y,color,acrossx,acrossy,xlimit=False,ylimit=False,xdirec=0,ydirec=0,xmin=1,ymin=1,xmult=1,ymult=1,canJump=False,canCapture=True,mustCapture=False):
     global board
-    possible=["none"]
-    if xlimit:
+    if not isinstance(xlimit,bool):
         xplim=x+xlimit+1
         xnlim=x-xlimit-1
+        if xplim>board[0]+1: xplim=board[0]+1
+        if xnlim<0: xnlim=0
     else:
-        xplim=board[0]
+        xplim=board[0]+1
         xnlim=0
-    if ylimit:
+    if not isinstance(ylimit,bool):
         yplim=y+ylimit+1
         ynlim=y-ylimit-1
+        if yplim>board[1]+1: yplim=board[1]+1
+        if ynlim<0: ynlim=0
     else:
-        yplim=board[1]
+        yplim=board[1]+1
         ynlim=0
+    xdirec=colorrev(color,xdirec)
+    ydirec=colorrev(color,ydirec)
     if acrossx and not acrossy:
         if xdirec>=0:
-            for i in range(x+colorrev(color,xmin),xplim,colorrev(color,1)):
-                if moveto(i,y,color,canCapture,mustCapture): possible.append([i,y])
+            for i in range(x+xmult,xplim,xmult):
+                if moveto(i,y,color,canCapture,mustCapture):
+                    if i>=x+xmin: possible.append([i,y])
                 elif not canJump: break
         if xdirec<=0:
-            for i in range(x-colorrev(color,xmin),xnlim,colorrev(color,-1)):
-                if moveto(i,y,color,canCapture,mustCapture): possible.append([i,y])
+            for i in range(x-xmult,xnlim,-1*xmult):
+                if moveto(i,y,color,canCapture,mustCapture):
+                    if i<=x-xmin: possible.append([i,y])
                 elif not canJump: break
     if acrossy and not acrossx:
         if ydirec>=0:
-            for i in range(y+colorrev(color,ymin),yplim,colorrev(color,1)):
-                if moveto(x,i,color,canCapture,mustCapture): possible.append([x,i])
+            for i in range(y+ymult,yplim,ymult):
+                if moveto(x,i,color,canCapture,mustCapture):
+                    if i>=y+ymin: possible.append([x,i])
                 elif not canJump: break
         if ydirec<=0:
-            for i in range(y-colorrev(color,xmin),ynlim,colorrev(color,-1)):
-                if moveto(x,i,color,canCapture,mustCapture): possible.append([x,i])
+            for i in range(y-ymult,ynlim,-1*ymult):
+                if moveto(x,i,color,canCapture,mustCapture):
+                    if i<=y-ymin: possible.append([x,i])
                 elif not canJump: break
     if acrossx and acrossy:
         if ydirec>=0:
             if xdirec>=0:
-                j=y+ymin
-                for i in range(x+colorrev(color,xmin),xplim,colorrev(color,1)):
-                    if moveto(i,j,color,canCapture,mustCapture): possible.append([i,j])
+                j=y+ymult
+                for i in range(x+xmult,xplim,xmult):
+                    if j>=yplim: break
+                    if moveto(i,j,color,canCapture,mustCapture):
+                        if i>=x+xmult and j>=y+ymin: possible.append([i,j])
                     elif not canJump: break
-                    j+=1
-                    if j==yplim: break
+                    j+=ymult
             if xdirec<=0:
-                j=y+ymin
-                for i in range(x-colorrev(color,xmin),xnlim,colorrev(color,-1)):
-                    if moveto(i,j,color,canCapture,mustCapture): possible.append([i,j])
+                j=y+ymult
+                for i in range(x-xmult,xnlim,-1*xmult):
+                    if j>=yplim: break
+                    if moveto(i,j,color,canCapture,mustCapture):
+                        if i<=x-xmin and j>=y+ymin: possible.append([i,j])
                     elif not canJump: break
-                    j+=1
-                    if j==yplim:break
+                    j+=ymult
         if ydirec>=0:
             if xdirec>=0:
-                j=y-ymin
-                for i in range(x+colorrev(color,xmin),xplim,colorrev(color,1)):
-                    if moveto(i,j,color,canCapture,mustCapture): possible.append([i,j])
+                j=y-ymult
+                for i in range(x+xmult,xplim,xmult):
+                    if j<=ynlim: break
+                    if moveto(i,j,color,canCapture,mustCapture):
+                        if i>=x+xmin and j<=y-ymin: possible.append([i,j])
                     elif not canJump: break
-                    j-=1
-                    if j==ynlim: break
+                    j-=-1*ymult
             if xdirec<=0:
-                j=y-ymin
-                for i in range(x-colorrev(color,xmin),xnlim,colorrev(color,-1)):
-                    if moveto(i,j,color,canCapture,mustCapture): possible.append([i,j])
+                j=y-ymult
+                for i in range(x-xmult,xnlim,-1*xmult):
+                    if j<=ynlim: break
+                    if moveto(i,j,color,canCapture,mustCapture):
+                        if i<=x-xmin and j<=y-ymin: possible.append([i,j])
                     elif not canJump: break
-                    j-=1
-                    if j==ynlim:break
-    if len(possible)>1:possible.remove("none")
+                    j-=-1*ymult
     return possible
 def checkcheck(piece,possible):
-    for i in possible:
-        global allPieces,board
-        for piece in allPieces: piece.clone()
-        if check(i)!="none": check(i).alive=False
-        piece.x=i[0]
-        piece.y=i[1]
-        if kingcheck(piece.color): possible.remove(i)
-        elif i[0]<1 or i[0]>board[0] or i[1]<1 or i[1]>board[1]: possible.remove(i)
-        for piece in allPieces: piece.declone()
+    global allPieces,board
+    if possible==[]: possible="none"
+    else:
+        for pieces in allPieces: pieces.clone()
+        for i in possible:
+            if check(i)!="none": check(i).alive=False
+            piece.x=i[0]
+            piece.y=i[1]
+            if kingcheck(piece.color): possible.remove(i)
+            elif i[0]<1 or i[0]>board[0] or i[1]<1 or i[1]>board[1]: possible.remove(i)
+        for pieces in allPieces: pieces.declone()
     return possible
 def possiblePieces(color):
     global allPieces
     possible=["none"]
     if color=="w":
         for piece in allPieces:
-            if checkcheck(piece,move(piece)) and piece.color=="w": possible.append(piece)
+            pieces=checkcheck(piece,move(piece))
+            if piece.color=="w" and pieces!="none": possible.append(piece)
     else:
         for piece in allPieces:
-            if checkcheck(piece,move(piece)) and piece.color=="b": possible.append(piece)
+            pieces=checkcheck(piece,move(piece))
+            if piece.color=="b" and pieces!="none": possible.append(piece)
     if len(possible)>1:possible.remove("none")
     return possible
 def translateMoveMade(moveMade):
@@ -187,46 +204,54 @@ def translatePossiblePieces(possiblePieces):
     return ret[:-2]
 def display():
     global board
+    print("┌───"+"┬───"*(board[0]-1)+"┐")
     for y in range(board[1],0,-1):
         for x in range(1,board[0]+1):
-            if check([x,y])!="none": name=check([x,y]).name
-            else: name="No piece"
-            print(name+" is at "+str(x)+","+str(y))
-    pass
-    #♔♕♖♗♘♙♚♛♜♝♞♟ 
+            print(end="│ ")
+            piece=check([x,y])
+            if piece!="none":
+                if piece.alive:
+                    if piece.color=="w": color="\033[33m"
+                    else: color="\033[31m"
+                    if piece.piece=="Pawn": name="p"
+                    elif piece.piece=="Knight": name="k"
+                    elif piece.piece=="Rook": name="R"
+                    elif piece.piece=="Bishop": name="B"
+                    elif piece.piece=="Queen": name="Q"
+                    elif piece.piece=="King": name="K"
+                    name=color+name
+                else: name=" "
+            else: name=" "
+            print(name,end="\033[m")
+            print(end=" ")
+        print("│")
+        if y!=1: print("├───"+"┼───"*(board[0]-1)+"┤")
+        else: continue
+    print("└───"+"┴───"*(board[0]-1)+"┘")
 def move(piece):
     global board
-    possible=["You should not see this."]
+    possible=[]
     if piece.alive:
         if piece.piece=="Pawn":
-            if linearmoveto(piece.x,piece.y,piece.color,False,True,0,1,1,canCapture=False)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,False,True,0,1,1,canCapture=False))
-            if linearmoveto(piece.x,piece.y,piece.color,True,True,1,1,1,mustCapture=True)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,True,1,1,1,mustCapture=True))
-            if linearmoveto(piece.x,piece.y,piece.color,False,True,0,2,1,xmin=2,canCapture=False)!=["none"] and not piece.hasMoved: possible.extend(linearmoveto(piece.x,piece.y,piece.color,False,True,0,2,1,canCapture=False))
-            if check([piece.x+1,piece.y+colorrev(piece.color,1)])!="none":
-                if check([piece.x+1,piece.y+colorrev(piece.color,1)]).color!=piece.color and check([piece.x+1,piece.y+colorrev(piece.color,1)]).piece=="Pawn" and check([piece.x+1,piece.y+colorrev(piece.color,1)]).extra: possible.append([piece.x+1,piece.y+colorrev(piece.color,1)])
-            if check([piece.x-1,piece.y+colorrev(piece.color,1)])!="none":
-                if check([piece.x-1,piece.y+colorrev(piece.color,1)]).color!=piece.color and check([piece.x-1,piece.y+colorrev(piece.color,1)]).piece=="Pawn" and check([piece.x-1,piece.y+colorrev(piece.color,1)]).extra: possible.append([piece.x-1,piece.y+colorrev(piece.color,1)])
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,0,1,ydirec=1,canCapture=False)
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,1,1,ydirec=1,mustCapture=True)
+            if not piece.hasMoved: possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,0,2,ydirec=1,ymin=2,canCapture=False)
         elif piece.piece=="Rook":
-            if linearmoveto(piece.x,piece.y,piece.color,True,False)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False))
-            if linearmoveto(piece.x,piece.y,piece.color,False,True)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,False,True))
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False)
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True))
         elif piece.piece=="Knight":
-            if linearmoveto(piece.x,piece.y,piece.color,True,True,1,2,ymin=2,canJump=True)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,True,1,2,canJump=True))
-            if linearmoveto(piece.x,piece.y,piece.color,True,True,2,1,xmin=2,canJump=True)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,True,2,1,canJump=True))
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,2,1,xmult=2,canJump=True)
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,1,2,ymult=2,canJump=True)
         elif piece.piece=="Bishop":
-            if linearmoveto(piece.x,piece.y,piece.color,True,True)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,True))
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True)
         elif piece.piece=="Queen":
-            if linearmoveto(piece.x,piece.y,piece.color,True,False)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False))
-            if linearmoveto(piece.x,piece.y,piece.color,False,True)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,False,True))
-            if linearmoveto(piece.x,piece.y,piece.color,True,True)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,True))
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False)
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True)
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True)
         elif piece.piece=="King":
-            if linearmoveto(piece.x,piece.y,piece.color,True,False,1,1)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,False,1,1))
-            if linearmoveto(piece.x,piece.y,piece.color,False,True,1,1)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,False,True,1,1))
-            if linearmoveto(piece.x,piece.y,piece.color,True,True,1,1)!=["none"]: possible.extend(linearmoveto(piece.x,piece.y,piece.color,True,True,1,1))
-            if check([board[0],piece.y])!="none":
-                if not piece.hasMoved and moveto(piece.x+1,piece.y,piece.color) and moveto(piece.x+2,piece.y,piece.color) and not check([board[0],piece.y]).hasMoved and linearmoveto(board[0],check([board[0],piece.y]).y,check([board[0],piece.y]).color,True,False,abs(board[0]-piece.x)-1,xmin=abs(board[0]-piece.x)-1)!="none": possible.append([piece.x+2,piece.y])
-            if check([1,piece.y])!="none":
-                if not piece.hasMoved and moveto(piece.x-1,piece.y,piece.color) and moveto(piece.x-2,piece.y,piece.color) and not check([1,piece.y]).hasMoved and linearmoveto(1,check([1,piece.y]).y,check([1,piece.y]).color,True,False,abs(1-piece.x)-1,xmin=abs(1-piece.x)-1)!="none": possible.append([piece.x-2,piece.y])
-    possible.remove("You should not see this.")
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False,1,1)
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,1,1)
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,1,1)
     return possible
 def reset():
     global allPieces
@@ -262,6 +287,23 @@ def reset():
     allPieces[29].reset("b","Bishop",3,8)
     allPieces[30].reset("b","Queen",4,8)
     allPieces[31].reset("b","King",5,8)
+#┌───┬───┬───┬───┬───┬───┬───┬───┐
+#│ R │ k │ B │ Q │ K │ B │ k │ R │
+#├───┼───┼───┼───┼───┼───┼───┼───┤
+#│ p │ p │ p │ p │ p │ p │ p │ p │
+#├───┼───┼───┼───┼───┼───┼───┼───┤
+#│   │   │   │   │   │   │   │   │
+#├───┼───┼───┼───┼───┼───┼───┼───┤
+#│   │   │   │   │   │   │   │   │
+#├───┼───┼───┼───┼───┼───┼───┼───┤
+#│   │   │   │   │   │   │   │   │
+#├───┼───┼───┼───┼───┼───┼───┼───┤
+#│   │   │   │   │   │   │   │   │
+#├───┼───┼───┼───┼───┼───┼───┼───┤
+#│ p │ p │ p │ p │ p │ p │ p │ p │
+#├───┼───┼───┼───┼───┼───┼───┼───┤
+#│ R │ k │ B │ Q │ K │ B │ k │ R │
+#└───┴───┴───┴───┴───┴───┴───┴───┘
 allPieces=[chess("wpawn1"),chess("wpawn2"),chess("wpawn3"),chess("wpawn4"),chess("wpawn5"),chess("wpawn6"),chess("wpawn7"),chess("wpawn8"),chess("wrook1"),chess("wrook2"),chess("wknight1"),chess("wknight2"),chess("wbishop1"),chess("wbishop2"),chess("wqueen1"),chess("wking1"),chess("bpawn1"),chess("bpawn2"),chess("bpawn3"),chess("bpawn4"),chess("bpawn5"),chess("bpawn6"),chess("bpawn7"),chess("bpawn8"),chess("brook1"),chess("brook2"),chess("bknight1"),chess("bknight2"),chess("bbishop1"),chess("bbishop2"),chess("bqueen1"),chess("bking1")]
 board=[8,8]
 play="y"
@@ -275,9 +317,8 @@ while play=="y" or play=="Y":
             else: print("Stalemate!")
             print("The",swap(color,"w","b"),"player wins!")
             break
-        print("You can move the following pieces:",translatePossiblePieces(possiblePieces(color)))
+        print("Player",color,"can move the following pieces:",translatePossiblePieces(possiblePieces(color)))
         while True:
-            global allPieces
             pieceMoveMade=color+input("What piece do you want to move? ").strip(" ").lower()
             for piece in allPieces:
                 if pieceMoveMade==piece.name: pieceMoveMade=piece
@@ -286,28 +327,24 @@ while play=="y" or play=="Y":
                 else: print("You can't move that piece!")
             else: print("That is not a valid piece!")
         while True:
-            moveMade=translateMoveMade(input("Where do you want to move "+translatePossiblePieces([pieceMoveMade])+"? "+str(checkcheck(pieceMoveMade.color,move(pieceMoveMade)))+" lmao "+str(move(pieceMoveMade))+" "))
-            if moveMade not in move(pieceMoveMade):
+            pieceMoveMadeMoves=move(pieceMoveMade)
+            moveMade=translateMoveMade(input("Where do you want to move "+translatePossiblePieces([pieceMoveMade])+"? "+str(checkcheck(pieceMoveMade,pieceMoveMadeMoves))+" "))
+            if moveMade not in pieceMoveMadeMoves:
                 print("That's not a vlaid move!")
                 continue
-            elif moveMade not in checkcheck(pieceMoveMade,move(pieceMoveMade)):
+            elif moveMade not in checkcheck(pieceMoveMade,pieceMoveMadeMoves):
                 print("That would put your king in check!")
                 continue
             else: 
                 print(translatePossiblePieces([pieceMoveMade]),"moved to",translateMoveMade(moveMade))
                 break
         if pieceMoveMade.piece=="King": pieceMoveMade.tempx=pieceMoveMade.x
+        if check(moveMade)!="none": check(moveMade).alive=False
         [pieceMoveMade.x,pieceMoveMade.y]=moveMade
-        if check(moveMade)!=["none"]: check(moveMade).alive=False
         if pieceMoveMade.piece=="Pawn":
-            if check([pieceMoveMade.x,pieceMoveMade.y-colorrev(piece.color,1)])!="none":
-                if check([pieceMoveMade.x,pieceMoveMade.y-colorrev(piece.color,1)]).piece=="Pawn" and check([pieceMoveMade.x,pieceMoveMade.y-colorrev(piece.color,1)]).extra: check([pieceMoveMade.x,pieceMoveMade.y-colorrev(piece.color,1)]).alive=False
             if moveMade[1]==board[0]+(colorrev(pieceMoveMade.color,(board[0]-1)/2)-1*((board[0]-1)/2)): pieceMoveMade.piece=input("What do you wan to promote your pawn to?")
             if not pieceMoveMade.hasMoved: pieceMoveMade.extra=True
             else: pieceMoveMade.extra=False
-        if pieceMoveMade.piece=="King" and abs(pieceMoveMade.tempx-pieceMoveMade.x)==2:
-            if pieceMoveMade.tempx-pieceMoveMade.x<0: check(1,pieceMoveMade.y).x=pieceMoveMade.x-1
-            elif pieceMoveMade.tempx-pieceMoveMade.x>0: check(board[0],pieceMoveMade.y).x=pieceMoveMade.x+1
         pieceMoveMade.hasMoved=True
         color=swap(color,"w","b")
         if kingcheck(color): print("The",color,"player is in check.")
