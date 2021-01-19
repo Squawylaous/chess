@@ -1,8 +1,1 @@
-        elif piece.piece="Teleporter":
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False,canJump=True,canCapture=False)
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,canJump=True,canCapture=False)
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,canJump=True,canCapture=False)
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False,1,1,mustCapture=True)
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,1,1,mustCapture=True)
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,1,1,mustCapture=True)
-            
+"        elif piece.piece=\"Teleporter\":\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False,canJump=True,canCapture=False)\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,canJump=True,canCapture=False)\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,canJump=True,canCapture=False)\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False,1,1,mustCapture=True)\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,1,1,mustCapture=True)\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,1,1,mustCapture=True)"
