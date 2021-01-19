@@ -1,3 +1,1 @@
-        elif piece.piece=="Rook":
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False)
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True)
+"        elif piece.piece==\"Rook\":\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False)\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True)"
