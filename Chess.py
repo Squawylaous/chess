@@ -266,7 +266,7 @@ def move(piece):
                     piece.x-=1
                     if not kingcheck(piece.color): possible.append([piece.x-2,piece.y])
                     declone()
-            for i in range(piece.x+1,0,+1):
+            for i in range(piece.x+1,board[1]+1,+1):
                 check=check([i,piece.y])
                 if check!="none":
                     if check.piece!="Rook" or check.color!=piece.color or check.hasMoved:
