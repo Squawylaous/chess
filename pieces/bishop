@@ -1,0 +1,4 @@
+
+        elif piece.piece=="Bishop":
+            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True)
+            
