@@ -1,6 +1,5 @@
 class chess:
     name="You're not suppossed to see this."
-    def __init__(self,name): self.name=name
     color="You're not suppossed to see this."
     piece="You're not suppossed to see this."
     x=0
@@ -26,6 +25,10 @@ class chess:
         self.alive=alive
         self.extra=extra
         self.displayName=displayName
+        num=0
+        for pieces in allPieces:
+            if allPieces.piece==piece: num+=1
+        self.name=color+piece.lower()+str(num)
         self.clone()
     def clone(piece): [piece.tempcolor,piece.temppiece,piece.tempx,piece.tempy,piece.tempalive,piece.temphasMoved,piece.tempextra,piece.tempdisplayName]=[piece.color,piece.piece,piece.x,piece.y,piece.alive,piece.hasMoved,piece.extra,piece.displayName]
     def declone(piece): [piece.color,piece.piece,piece.x,piece.y,piece.alive,piece.hasMoved,piece.extra,piece.displayName]=[piece.tempcolor,piece.temppiece,piece.tempx,piece.tempy,piece.tempalive,piece.temphasMoved,piece.tempextra,piece.tempdisplayName]
@@ -72,14 +75,13 @@ def check(xy):
 def kingcheck(color):
     global allPieces
     ret=False
-    if color=="w":
-        xy=[allPieces[0].x,allPieces[0].y]
+    kings=[]
+    for piece in allPieces:
+        if piece.piece=="King" and piece.color=color: kings.append(piece)
+    for king in kings:
         for piece in allPieces:
-            if xy in move(piece): ret=True
-    else:
-        xy=[allPieces[1].x,allPieces[1].y]
-        for piece in allPieces:
-            if xy in move(piece): ret=True
+            if piece.piece=="King": break
+            elif [king.x,king.y] in move(piece): ret=True
     return ret
 def moveto(x,y,color,canCapture=True,mustCapture=False):
     piece=check([x,y])
@@ -255,6 +257,24 @@ def move(piece):
             possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,False,1,1)
             possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,1,1)
             possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,1,1)
+            for i in range(piece.x-1,0,-1):
+                check=check([i,piece.y])
+                if check!="none":
+                    if check.piece!="Rook" or check.color!=piece.color or check.hasMoved:
+                        break
+                    clone()
+                    piece.x-=1
+                    if not kingcheck(piece.color): possible.append([piece.x-2,piece.y])
+                    declone()
+            for i in range(piece.x+1,0,+1):
+                check=check([i,piece.y])
+                if check!="none":
+                    if check.piece!="Rook" or check.color!=piece.color or check.hasMoved:
+                        break
+                    clone()
+                    piece.x+=1
+                    if not kingcheck(piece.color): possible.append([piece.x+2,piece.y])
+                    declone()
         elif piece.piece=="Pawn":
             possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,0,1,ydirec=1,canCapture=False)
             if not piece.hasMoved: possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,0,2,ydirec=1,ymin=2,canCapture=False)
@@ -280,38 +300,25 @@ def move(piece):
     return possible
 def reset():
     global allPieces
-    allPieces[0].reset("w","King","K",5,1)
-    allPieces[1].reset("b","King","K",5,8)
-    allPieces[2].reset("w","Pawn","p",1,2)
-    allPieces[3].reset("w","Pawn","p",2,2)
-    allPieces[4].reset("w","Pawn","p",3,2)
-    allPieces[5].reset("w","Pawn","p",4,2)
-    allPieces[6].reset("w","Pawn","p",5,2)
-    allPieces[7].reset("w","Pawn","p",6,2)
-    allPieces[8].reset("w","Pawn","p",7,2)
-    allPieces[9].reset("w","Pawn","p",8,2)
-    allPieces[10].reset("w","Rook","R",1,1)
-    allPieces[11].reset("w","Rook","R",8,1)
-    allPieces[12].reset("w","Knight","N",2,1)
-    allPieces[13].reset("w","Knight","N",7,1)
-    allPieces[14].reset("w","Bishop","B",3,1)
-    allPieces[15].reset("w","Bishop","B",6,1)
-    allPieces[16].reset("w","Queen","Q",4,1)
-    allPieces[17].reset("b","Pawn","p",8,7)
-    allPieces[18].reset("b","Pawn","p",7,7)
-    allPieces[19].reset("b","Pawn","p",6,7)
-    allPieces[20].reset("b","Pawn","p",5,7)
-    allPieces[21].reset("b","Pawn","p",4,7)
-    allPieces[22].reset("b","Pawn","p",3,7)
-    allPieces[23].reset("b","Pawn","p",2,7)
-    allPieces[24].reset("b","Pawn","p",1,7)
-    allPieces[25].reset("b","Rook","R",8,8)
-    allPieces[26].reset("b","Rook","R",1,8)
-    allPieces[27].reset("b","Knight","N",7,8)
-    allPieces[28].reset("b","Knight","N",2,8)
-    allPieces[29].reset("b","Bishop","B",6,8)
-    allPieces[30].reset("b","Bishop","B",3,8)
-    allPieces[31].reset("b","Queen","Q",4,8)
+    for i in range(8):
+        allPieces[i].reset("w","Pawn","P",i+1,2)
+        allPieces[8+i].reset("b","Pawn","p",i+1,7)
+    allPieces[16].reset("w","Rook","R",1,1)
+    allPieces[17].reset("w","Rook","R",8,1)
+    allPieces[18].reset("b","Rook","R",8,8)
+    allPieces[19].reset("b","Rook","R",1,8)
+    allPieces[20].reset("w","Knight","N",2,1)
+    allPieces[21].reset("w","Knight","N",7,1)
+    allPieces[22].reset("b","Knight","N",7,8)
+    allPieces[23].reset("b","Knight","N",2,8)
+    allPieces[24].reset("w","Bishop","B",3,1)
+    allPieces[25].reset("w","Bishop","B",6,1)
+    allPieces[26].reset("b","Bishop","B",6,8)
+    allPieces[27].reset("b","Bishop","B",3,8)
+    allPieces[28].reset("w","Queen","Q",4,1)
+    allPieces[29].reset("b","Queen","Q",4,8)
+    allPieces[30].reset("w","King","K",5,1)
+    allPieces[31].reset("b","King","K",5,8)
 #   ┌───┬───┬───┬───┬───┬───┬───┬───┐
 # 8 │ R │ k │ B │ Q │ K │ B │ k │ R │
 #   ├───┼───┼───┼───┼───┼───┼───┼───┤
@@ -330,7 +337,7 @@ def reset():
 # 1 │ R │ k │ B │ Q │ K │ B │ k │ R │
 #   └───┴───┴───┴───┴───┴───┴───┴───┘
 #     A   B   C   D   E   F   G   H
-allPieces=[chess("wking1"),chess("bking1"),chess("wpawn1"),chess("wpawn2"),chess("wpawn3"),chess("wpawn4"),chess("wpawn5"),chess("wpawn6"),chess("wpawn7"),chess("wpawn8"),chess("wrook1"),chess("wrook2"),chess("wknight1"),chess("wknight2"),chess("wbishop1"),chess("wbishop2"),chess("wqueen1"),chess("bpawn1"),chess("bpawn2"),chess("bpawn3"),chess("bpawn4"),chess("bpawn5"),chess("bpawn6"),chess("bpawn7"),chess("bpawn8"),chess("brook1"),chess("brook2"),chess("bknight1"),chess("bknight2"),chess("bbishop1"),chess("bbishop2"),chess("bqueen1")]   
+allPieces=[chess() for i in range(32)]
 board=[8,8]
 play="y"
 while play=="y" or play=="Y":
@@ -347,9 +354,9 @@ while play=="y" or play=="Y":
             break
         print("The",displayColor,"player can move the following pieces:",translatePossiblePieces(possiblePieces(color)))
         while True:
-            pieceMoveMade=color+(input("What piece do you want to move? ").replace(" ","")).lower()
+            pieceMoveMade=(input("What piece do you want to move? ").replace(" ","")).lower()
             for piece in allPieces:
-                if pieceMoveMade==piece.name:
+                if pieceMoveMade==piece.name and piece.color==color:
                     pieceMoveMade=piece
                     break
                 else: pieceMoveMade="none"
@@ -372,7 +379,7 @@ while play=="y" or play=="Y":
             else: 
                 print(translatePossiblePieces([pieceMoveMade]),"moved to",translateMoveMade(moveMade))
                 break
-#for castling        if pieceMoveMade.piece=="King": pieceMoveMade.tempx=pieceMoveMade.x
+        if pieceMoveMade.piece=="King": pieceMoveMade.tempx=pieceMoveMade.x
         if check(moveMade)!="none": check(moveMade).alive=False
         [pieceMoveMade.x,pieceMoveMade.y]=moveMade
         if pieceMoveMade.piece=="Pawn":
@@ -385,12 +392,20 @@ while play=="y" or play=="Y":
                 for piece in allPieces:
                     if piece.piece==pawnPromote: count+=1
                 pieceMoveMade.piece=pawnPromote
-                pieceMoveMade.name=pieceMoveMade.color+pawnPromote.lower()+str(count)
+                pieceMoveMade.name=pawnPromote.lower()+str(count)
                 if pawnPromote=="Knight": pieceMoveMade.displayName="N"
                 else: pieceMoveMade.displayName=pawnPromote[0]
             enPassant=check([pieceMoveMade.x,pieceMoveMade.y-colorrev(pieceMoveMade.color,1)])
             if enPassant!="none":
                 if enPassant.extra and enPassant.color!=pieceMoveMade.color: enPassant.alive=False
+        if pieceMoveMade.piece=="King":
+            if abs(pieceMoveMade.tempx-pieceMoveMade.x)==2:
+                if pieceMoveMade.tempx>pieceMoveMade.x: diff=-1
+                else: diff=1
+                for i in range(pieceMoveMade.tempx+diff,0,diff):
+                    check=check([i,pieceMoveMade.y])
+                    if check.piece=="Rook":
+                        check.x=pieceMoveMade.x-diff
         for piece in allPieces:
             if piece.piece=="Pawn": pieceMoveMade.extra=False
         if not pieceMoveMade.hasMoved and pieceMoveMade.piece=="Pawn": pieceMoveMade.extra=True
