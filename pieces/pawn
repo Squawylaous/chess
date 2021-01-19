@@ -1,10 +1,1 @@
-        elif piece.piece=="Pawn":
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,0,1,ydirec=1,canCapture=False)
-            if not piece.hasMoved: possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,0,2,ydirec=1,ymin=2,canCapture=False)
-            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,1,1,ydirec=1,mustCapture=True)
-            temp=check([piece.x+1,piece.y])
-            if temp!="none":
-                if temp.piece=="Pawn" and temp.color!=piece.color and temp.extra and moveto(piece.x+1,piece.y+colorrev(piece.color,1),piece.color,False): possible.append([piece.x+1,piece.y+colorrev(piece.color,1)])
-            temp=check([piece.x-1,piece.y])
-            if temp!="none":
-                if temp.piece=="Pawn" and temp.color!=piece.color and temp.extra and moveto(piece.x-1,piece.y+colorrev(piece.color,1),piece.color,False): possible.append([piece.x-1,piece.y+colorrev(piece.color,1)])
+"        elif piece.piece==\"Pawn\":\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,0,1,ydirec=1,canCapture=False)\n            if not piece.hasMoved: possible=linearmoveto(possible,piece.x,piece.y,piece.color,False,True,0,2,ydirec=1,ymin=2,canCapture=False)\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True,1,1,ydirec=1,mustCapture=True)\n            temp=check([piece.x+1,piece.y])\n            if temp!=\"none\":\n                if temp.piece==\"Pawn\" and temp.color!=piece.color and temp.extra and moveto(piece.x+1,piece.y+colorrev(piece.color,1),piece.color,False): possible.append([piece.x+1,piece.y+colorrev(piece.color,1)])\n            temp=check([piece.x-1,piece.y])\n            if temp!=\"none\":\n                if temp.piece==\"Pawn\" and temp.color!=piece.color and temp.extra and moveto(piece.x-1,piece.y+colorrev(piece.color,1),piece.color,False): possible.append([piece.x-1,piece.y+colorrev(piece.color,1)])"
