@@ -349,7 +349,14 @@ while play=="y" or play=="Y":
         display()
         if possiblePieces(color)==["none"]:
             if kingcheck(color): print("The",displayColor,"player is in checkmate!")
-            else: print("Stalemate!")
+            else:
+                for piece in allPieces:
+                    if piece.color==color and piece.alive:
+                        print("Stalemate!")
+                        noPieces=False
+                        break
+                    else: noPieces=True
+                if noPieces: print("The",displayColor,"player is out of pieces!")
             print("The",swap(displayColor,"White","Black"),"player wins!")
             break
         print("The",displayColor,"player can move the following pieces:",translatePossiblePieces(possiblePieces(color)))
