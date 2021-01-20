@@ -1,1 +1,1 @@
-"        elif piece.piece==\"Bishop\":\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True)"
+"\n        elif piece.piece==\"Bishop\":\n            possible=linearmoveto(possible,piece.x,piece.y,piece.color,True,True)"
